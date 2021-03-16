@@ -8,7 +8,7 @@ full source code on [github](https://github.com/maxencerb/ESILV-IA-WEIERSTRASS).
 
 ### Quelle est la taille de l'espace de recherche ?
 
-L'espace de recherche est $]0, 1[\times[[1, 20]]^2$.
+L'espace de recherche est <img src="https://render.githubusercontent.com/render/math?math=]0, 1[\times[[1, 20]]^2">.
 
 ### Quelle est votre fonction fitness ?
 
@@ -104,13 +104,13 @@ def a_mutation(childrens, borne_a, number_of_a_variations = 10, a_std_mutation =
 
 #### Croisement
 
-L'opérateur de croisement prend 2 parents. Il créé deux enfants. Le premier enfant prend le b du parent 1 et le c du parent 2. L'enfant 2 le reste. Pour ce qui est de a, il est calculé une moyenne pondéré d'après une valeur $\alpha$ passé en paramètre.
+L'opérateur de croisement prend 2 parents. Il créé deux enfants. Le premier enfant prend le b du parent 1 et le c du parent 2. L'enfant 2 le reste. Pour ce qui est de a, il est calculé une moyenne pondéré d'après une valeur <img src="https://render.githubusercontent.com/render/math?math=\alpha"> passé en paramètre.
 
-$\forall\alpha\in]0,1[$
-
-$a_{enfant1} = \alpha\times a_1 + (1 - \alpha)\times a_2$
-
-$a_{enfant2} = \alpha\times a_2 + (1 - \alpha)\times a_1$
+<img src="https://render.githubusercontent.com/render/math?math=\forall\alpha\in]0,1[">
+<br>
+<img src="https://render.githubusercontent.com/render/math?math=a_{enfant1} = \alpha\times a_1 + (1 - \alpha)\times a_2">
+<br>
+<img src="https://render.githubusercontent.com/render/math?math=a_{enfant2} = \alpha\times a_2 + (1 - \alpha)\times a_1">
 
 ```python
 def crossover(p1, p2, alpha_a_crossover = .3):
