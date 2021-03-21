@@ -10,6 +10,12 @@ full source code on [github](https://github.com/maxencerb/ESILV-IA-WEIERSTRASS).
 
 L'espace de recherche est <img src="https://render.githubusercontent.com/render/math?math=]0, 1[\times[[1, 20]]^2">.
 
+Aussi, si on décide d'arrondir **a** à 1e-2 près par exemple, on peut quantifier le nombre de possibilité. Soit le nombre de possibilités **n** et la précision de a **ε**. On a :
+
+*n = 39 + 1 / ε*
+
+Avec un précision de 1e-2, on a donc 239 possibilités. Il faut donc une petite population avec peu de cycle.
+
 ### Quelle est votre fonction fitness ?
 
 Etant donné que nous pouvons directement calculer la température avec un tuple (a, b, c) donnée, il nous suffit de calculer la température correspondant à l'individu et do sommer les différences en valeur absolu avec les sorties attendus :
