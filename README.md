@@ -164,3 +164,8 @@ Avec des tests sur plusieurs centaines de génération, avec une population de t
 Il n'y a pas de solution qui ont moins bien fonctionnées. Tout a été question d'optimisation surtout sur la fonction de fitness qui prenait 95% du temps d'exécution. Pour l'optimiser, j'ai tout d'abord essayer de sauvegarder toutes les valeurs de cos possible pour le problème mais cela prenait trop de mémoire et la solution de `sparse_cosine_similarities` proposé par `numpy.cos` a été la plus rapide.
 
 Aussi, le problème de cet exercie est que, quelque soit les valeurs donnée, l'algorithme va vouloir donner une valeur de c faible (2 ou 3) et moduler la valeur de a pour obtenir la meilleur fitness. En effet, en traçant le graphique, on voit bien que la courbe suit bien les points, malgrès le fait que la valeur de c ne soit pas la bonne.
+
+
+## Gestion du bruit
+
+On approxime le bruit par une loi normale de paramètre (0, 0.1)
