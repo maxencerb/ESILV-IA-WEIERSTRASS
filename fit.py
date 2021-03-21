@@ -1,5 +1,5 @@
 import numpy as np
-from population import total_fitness, select_parents, selection, total_fitness2
+from population import total_fitness, select_parents, selection
 from individu import crossover
 from mutation import b_c_flip_mutation, reset_mutation, a_mutation
 from init import BORNE_A, BORNE_B, BORNE_C
@@ -17,7 +17,7 @@ def single_fit(population, time, temperature, number_of_parents = 20, alpha_a_cr
     childrens = []
     for couple in parents:
         p1, p2 = couple
-        c1, c2 = crossover(p1, p2, alpha_a_crossover, a_precision)
+        c1, c2 = crossover(p1, p2, alpha_a_crossover, borne_a, a_precision)
         childrens.append(c1)
         childrens.append(c2)
     childrens = np.array(childrens)
@@ -55,7 +55,7 @@ def fit(population, time, temperature, nb_of_cycle = 10, stopFunction = stopAfte
     best_fitness = []
     start = t.time()
     for _ in progressbar.progressbar(range(nb_of_cycle)):
-        fitness = total_fitness2(population, time, temperature, abs_error)
+        fitness = total_fitness(population, time, temperature)
         round_best_index = np.where(fitness == min(fitness))[0][0]
         best.append(population[round_best_index])
         best_fitness.append(fitness[round_best_index])

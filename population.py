@@ -22,7 +22,7 @@ def temperatureCalcul(i, population):
             break
         ai = ai * a * test.astype(int)
         bi = bi * b * test.astype(int)
-    return sum
+    return sum + np.random.normal(0, .01, size=len(sum))
 
 def total_fitness(population, time, temperature):
     """

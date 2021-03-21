@@ -4,6 +4,8 @@ ESILV 2021 &copy; [maxence raballand](https://maxenceraballand.com).
 
 full source code on [github](https://github.com/maxencerb/ESILV-IA-WEIERSTRASS).
 
+Pour voir l'application de mon code, il faut aller sur le fichier [WeierStrass.ipynb](https://github.com/maxencerb/ESILV-IA-WEIERSTRASS/blob/4840ea5badcd684bbfc82836e5a3eab769516313/WeierStrass.ipynb)
+
 ## Questions
 
 ### Quelle est la taille de l'espace de recherche ?
@@ -12,9 +14,9 @@ L'espace de recherche est <img src="https://render.githubusercontent.com/render/
 
 Aussi, si on décide d'arrondir **a** à 1e-2 près par exemple, on peut quantifier le nombre de possibilité. Soit le nombre de possibilités **n** et la précision de a **ε**. On a :
 
-*n = 39 + 1 / ε*
+*n = 400 * (1 / ε - 1)*
 
-Avec un précision de 1e-2, on a donc 239 possibilités. Il faut donc une petite population avec peu de cycle.
+Avec un précision de 1e-2, on a donc ~4000 possibilités. Il faut donc une petite population avec peu de cycle.
 
 ### Quelle est votre fonction fitness ?
 
@@ -159,19 +161,26 @@ def selection(population, childrens, fitness):
 
 ### Quelle  est  la  taille  de  votre  population,  combien  de  g ́en ́erations  sont  n ́ecessaires  avant  deconverger vers une solution stable ?
 
-Avec une taille de **population de 100**, Il faut environ **90 génération** avant de converger vers la meilleur solution. Cependant, les améliorations sont moindres à partir de 25 générations.
+Avec une taille de **population de 25**, Il faut environ **90 génération** avant de converger vers la meilleur solution. Cependant, les améliorations sont moindres à partir de 25 générations. Il y a donc de l'overfitting possible à partir de 25 générations.
 
 ### Combien de temps votre programme prend en moyenne (sur plusieurs runs) ?
 
 Avec des tests sur plusieurs centaines de génération, avec une population de taille 100, on trouve un moyenne de **10ms** et avec une population de taille 1000, on trouve une moyenne de **30ms**.
 
-### Discutez vos diff ́erentes solutions qui ont moins bien fonctionnées, décrivez-les et discutez-les
+### Discutez vos différentes solutions qui ont moins bien fonctionnées, décrivez-les et discutez-les
 
 Il n'y a pas de solution qui ont moins bien fonctionnées. Tout a été question d'optimisation surtout sur la fonction de fitness qui prenait 95% du temps d'exécution. Pour l'optimiser, j'ai tout d'abord essayer de sauvegarder toutes les valeurs de cos possible pour le problème mais cela prenait trop de mémoire et la solution de `sparse_cosine_similarities` proposé par `numpy.cos` a été la plus rapide.
 
 Aussi, le problème de cet exercie est que, quelque soit les valeurs donnée, l'algorithme va vouloir donner une valeur de c faible (2 ou 3) et moduler la valeur de a pour obtenir la meilleur fitness. En effet, en traçant le graphique, on voit bien que la courbe suit bien les points, malgrès le fait que la valeur de c ne soit pas la bonne.
 
-
 ## Gestion du bruit
 
-On approxime le bruit par une loi normale de paramètre (0, 0.1)
+On approxime le bruit par une loi normale de paramètre (0, 0.1). J'ai ajouté du bruit lors du calcul de la température pour tenter de reproduire le bruit avec les paramètre estimé du bruit.
+
+Une autre tentative a été de faire une nfft (FFT avec des points non-equidistant) mais étant donné la fréquence de certaines valeur et le peu de point, il est difficile d'enlever le bruit.
+
+Une troisième tentative a été de créer un réseau de neuronne en créant des données bruité avec l'hypothèse de la loi normale et d'avoir en sortie de ce réseau des donéées débruités (sans succès...)
+
+## Choix des paramètres
+
+Ma fonction fit comporte de nombreux paramètre. La taille de la population a été choisi arbitrairement par rapport à la taille de l'espace de recherche. Ensuite, j'ai obtenu les paramètre en comparant la vitesse de convergence selon les différentes valeurs. Les plus importants sont les paramètre concernant la mutation. Cela veut donc dire que l'opérateur de mutation est la méthode qui permet d'obtenir une convergence.
