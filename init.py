@@ -7,6 +7,13 @@ BORNE_C = [1, 20]
 
 
 def readFile(filename, skipFirstLine = True):
+    """
+    Lit le fichier contenant les températures
+
+    Return:
+    np.ndarray: liste 1D contenant les temps
+    np.ndarray: liste 1D contenant les températures
+    """
     time, temperature = [], []
     file = open(filename, 'r')
     for line in file.readlines()[1 if skipFirstLine else 0:]:
@@ -16,6 +23,12 @@ def readFile(filename, skipFirstLine = True):
     return np.array(time), np.array(temperature)
 
 def set_variable_value(n, borne, type, a_precision = 2):
+    """
+    Met la valeur de la variable dans les bornes prédéfini et au format souhaité
+
+    Return:
+    type(type): valeur mise dans le bonne espace de recherche
+    """
     if n < borne[0]:
         n = borne[0]
     elif n > borne[1]:
@@ -25,6 +38,9 @@ def set_variable_value(n, borne, type, a_precision = 2):
 def initPopulation(population_size = 100, borne_a = [0+EPS, 1-EPS], borne_b = [1, 20], borne_c = [1, 20]):
     """
     Random initialization
+
+    Return:
+    np.ndarray: Tableau 2D contenant toute la population
     """
     pop = []
     for _ in range(population_size):

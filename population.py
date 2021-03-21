@@ -1,6 +1,12 @@
 import numpy as np
 
 def temperatureCalcul(i, population):
+    """
+    Calcul la température sur toute une populations
+
+    Return:
+    numpy.ndarray: liste 1D contenant toutes les températures de la population
+    """
     size = len(population)
     sum, ai, bi = np.zeros(size), np.ones(size), np.ones(size)
     ipi = i * np.pi
@@ -19,12 +25,25 @@ def temperatureCalcul(i, population):
     return sum
 
 def total_fitness(population, time, temperature):
+    """
+    Calcul la fitness sur toutes la population
+
+    Return:
+    numpy.ndarray: liste 1D contenant les fitness de la population
+    """
     cost = np.zeros(len(population))
     for i in range(len(time)):
         cost += np.absolute(temperatureCalcul(time[i], population) - temperature[i])
     return cost / len(time)
 
 def total_fitness2(population, time, temperature, abs_error):
+    """
+    Calcul la fitness sur toutes la population
+    Test anti overfitting
+
+    Return:
+    numpy.ndarray: liste 1D contenant les fitness de la population
+    """
     cost = np.zeros(len(population))
     for i in range(len(time)):
         iter_cost = np.absolute(temperatureCalcul(time[i], population) - temperature[i])
@@ -34,6 +53,12 @@ def total_fitness2(population, time, temperature, abs_error):
     return cost / len(time)
 
 def select_parents(population, fitness, number_of_parents = 20):
+    """
+    Selectionne des parents au hasard dans la population sans remise
+
+    Return:
+    np.ndarray: liste 3D contenant les parents (couples)
+    """
     prob = 1/fitness
     prob = prob / sum(prob)
     choices = np.random.choice(population.shape[0], size=number_of_parents*2, replace=False, p=prob)
@@ -44,6 +69,9 @@ def select_parents(population, fitness, number_of_parents = 20):
     return parents
 
 def selection(population, childrens, fitness):
+    """
+    Remplace des individus au hasard proportionellement à leur fitness par les enfants
+    """
     tokeep = np.where(fitness == min(fitness))[0][0]
     fitness = np.delete(fitness, tokeep)
     fitness = fitness/sum(fitness)
